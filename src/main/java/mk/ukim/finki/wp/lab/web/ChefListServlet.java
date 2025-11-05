@@ -5,6 +5,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import mk.ukim.finki.wp.lab.model.Chef;
 import mk.ukim.finki.wp.lab.service.ChefService;
 import mk.ukim.finki.wp.lab.service.DishService;
 import org.thymeleaf.context.WebContext;
@@ -13,6 +15,8 @@ import org.thymeleaf.web.IWebExchange;
 import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name="ChefServlet", urlPatterns="/listChefs")
 public class ChefListServlet extends HttpServlet {
@@ -35,6 +39,20 @@ public class ChefListServlet extends HttpServlet {
 
         WebContext context = new WebContext(webExchange);
 
+        HttpSession session = req.getSession();
+
+        List<Chef> recentChefs = (List<Chef>) session.getAttribute("recentChefs");
+
+        /* Edno reshenie so Id na chef
+        List<Chef> lastChefs = new ArrayList<>();
+        if(recentChefs != null){
+            for(Long id : recentChefs){
+                lastChefs.add(chefService.findById(id));
+            }
+        }*/
+
+
+        context.setVariable("recentChefs", recentChefs);
         context.setVariable("chefs", chefService.listChefs());
 
         templateEngine.process("listChefs.html", context, resp.getWriter());

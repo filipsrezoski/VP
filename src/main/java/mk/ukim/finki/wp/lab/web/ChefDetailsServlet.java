@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import mk.ukim.finki.wp.lab.model.Chef;
 import mk.ukim.finki.wp.lab.model.Dish;
 import mk.ukim.finki.wp.lab.service.ChefService;
@@ -15,6 +16,8 @@ import org.thymeleaf.web.IWebExchange;
 import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "ChefDetailsServlet", urlPatterns = "/chefDetails")
 public class ChefDetailsServlet extends HttpServlet {
@@ -44,6 +47,36 @@ public class ChefDetailsServlet extends HttpServlet {
 
         Chef chef = chefService.findById(chefId);
 
+        HttpSession session = req.getSession();
+
+        /* Edno reshenie so ID na chef
+        List<Long> recentChefs = (List<Long>) session.getAttribute("recentChefs");
+        if(recentChefs == null){
+            recentChefs = new ArrayList<>();
+        }
+
+        recentChefs.remove(chefId);
+        recentChefs.add(chefId);
+
+        if(recentChefs.size() > 3){
+            recentChefs.remove(0);
+        }*/
+
+        List<Chef> recentChefs = (List<Chef>) session.getAttribute("recentChefs");
+        if(recentChefs == null){
+            recentChefs = new ArrayList<>();
+        }
+
+        recentChefs.removeIf(c -> c.getId().equals(chef.getId()));
+        recentChefs.add(chef);
+
+        if(recentChefs.size() > 3){
+            recentChefs.remove(0);
+        }
+
+
+
+        session.setAttribute("recentChefs", recentChefs);
         context.setVariable("chefName", chef.getFirstName() + " " + chef.getLastName());
         context.setVariable("bio", chef.getBio());
         context.setVariable("dishes", chef.getDishes());

@@ -17,6 +17,9 @@
 <body>
 <header>
     <h1>Welcome to Our Restaurant</h1>
+    <h2>Three most wanted chefs</h2>
+    <input th:each="c:${recentChefs}" th:utext="'Name: ' + ${c.getFirstName()} + ' ' + ${c.getLastName()}" hidden="">
+    <br/>
 </header>
 <main>
     <h2>Choose a chef:</h2>
