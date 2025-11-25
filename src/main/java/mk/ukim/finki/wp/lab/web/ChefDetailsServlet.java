@@ -1,4 +1,4 @@
-package mk.ukim.finki.wp.lab.web;
+/*package mk.ukim.finki.wp.lab.web;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -62,7 +62,7 @@ public class ChefDetailsServlet extends HttpServlet {
             recentChefs.remove(0);
         }*/
 
-        List<Chef> recentChefs = (List<Chef>) session.getAttribute("recentChefs");
+ /*       List<Chef> recentChefs = (List<Chef>) session.getAttribute("recentChefs");
         if(recentChefs == null){
             recentChefs = new ArrayList<>();
         }
@@ -98,3 +98,4 @@ public class ChefDetailsServlet extends HttpServlet {
     }
 }
 
+*/

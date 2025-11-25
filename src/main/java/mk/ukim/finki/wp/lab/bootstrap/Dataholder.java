@@ -18,11 +18,11 @@ public class Dataholder {
     // On each startup, the lists will be initialized with the same values and the previous values will be lost
     @PostConstruct
     public void init() {
-        dishes.add(new Dish("D1", "Pizza", "Italia", 5));
-        dishes.add(new Dish("D2", "Ajvar", "Macedonia", 60));
-        dishes.add(new Dish("D3", "Smash Burger", "USA", 15));
-        dishes.add(new Dish("D4", "Baklava", "Turkey", 15));
-        dishes.add(new Dish("D5", "Bolognese", "Italia", 10 ));
+        dishes.add(new Dish(1L, "D1", "Pizza", "Italia", 5, 0));
+        dishes.add(new Dish(2L, "D2", "Ajvar", "Macedonia", 60,0 ));
+        dishes.add(new Dish(3L, "D3", "Smash Burger", "USA", 15,0 ));
+        dishes.add(new Dish(4L, "D4", "Baklava", "Turkey", 15,0 ));
+        dishes.add(new Dish(5L, "D5", "Bolognese", "Italia", 10,0 ));
 
         chefs.add(new Chef(1L, "Filip", "Srezoski", "Macedonian", new ArrayList<>()));
         chefs.add(new Chef(2L, "Teodora", "Mateska", "Swedish", new ArrayList<>()));

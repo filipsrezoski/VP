@@ -1,4 +1,4 @@
-package mk.ukim.finki.wp.lab.web;
+/*package mk.ukim.finki.wp.lab.web;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -51,10 +51,11 @@ public class ChefListServlet extends HttpServlet {
             }
         }*/
 
-
+/*
         context.setVariable("recentChefs", recentChefs);
         context.setVariable("chefs", chefService.listChefs());
 
         templateEngine.process("listChefs.html", context, resp.getWriter());
     }
 }
+*/

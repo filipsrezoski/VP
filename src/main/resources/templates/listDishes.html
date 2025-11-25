@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dish Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            width: 800px;
+            margin: 50px auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #333;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+
+<h1>All Dishes</h1>
+<a href="/dishes/dish-form">Add new dish</a>
+<table>
+    <thead>
+    <tr>
+        <th>Dish ID</th>
+        <th>Name</th>
+        <th>Cuisine</th>
+        <th>Preparation Time</th>
+        <th>Options</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="dish : ${dishes}">
+        <td th:text="${dish.dishId}"></td>
+        <td th:text="${dish.name}"></td>
+        <td th:text="${dish.cuisine}"></td>
+        <td th:text="${dish.preparationTime}"></td>
+        <td>
+            <form th:action="@{'/dishes/delete/{id}' (id=${dish.getId()})}" th:method="DELETE"> <button type="submit">Delete</button> </form>
+            <a th:href="@{'/dishes/dish-form/{id}' (id=${dish.getId()})}">Edit</a>
+
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

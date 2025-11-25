@@ -1,4 +1,4 @@
-package mk.ukim.finki.wp.lab.web;
+/*package mk.ukim.finki.wp.lab.web;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -59,3 +59,4 @@ public class DishServlete extends HttpServlet {
         resp.sendRedirect("/dish?chefId=" + chefId);
     }
 }
+*/

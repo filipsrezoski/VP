@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Dish Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .form-container {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 8px;
+            width: 350px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.15);
+        }
+        .form-container h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+<div>
+    <h1>Form</h1>
+    <form th:action="@{${dish== null ? '/dishes/add' : '/dishes/edit/' + dish.id}}" method="POST">
+        <label for="dishId">Dish id:</label>
+        <input type="text" id="dishId" name="dishId" placeholder="Enter dish ID" th:value="${dish!=null ? dish.dishId : ''}">
+        <label for="name">Dish Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter dish name" th:value="${dish!=null ? dish.name : ''}">
+        <label for="cuisine" >Cuisine:</label>
+        <input type="text" id="cuisine" name="cuisine" placeholder="Enter cuisine" th:value="${dish!=null ? dish.cuisine : ''}">
+        <label for="preparationTime">Preparation Time</label>
+        <input type="text" id="preparationTime" name="preparationTime" placeholder="Enter preparation time" th:value="${dish!=null ? dish.preparationTime : ''}">
+        <button id="submit">Submit</button>
+    </form>
+</div>
+</body>
+</html>
