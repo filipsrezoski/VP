@@ -13,17 +13,14 @@ public class Dish {
     String name;
     String cuisine;
     int preparationTime;
+    private boolean liked = false;
 
-    public int getLikes() {
-        return likeButton;
+    public boolean isLiked() {
+        return liked;
     }
 
-    public void setLikes(int likeButton) {
-        this.likeButton = likeButton;
+    public void setLiked(boolean liked) {
+        this.liked = liked;
     }
-
-    int likeButton;
-    //int popularity;
-
 
 }

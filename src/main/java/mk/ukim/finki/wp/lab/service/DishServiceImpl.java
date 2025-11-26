@@ -36,7 +36,7 @@ public class DishServiceImpl implements DishService {
     public Dish create(String dishId, String name, String cuisine, int preparationTime) {
         Long newId = Dataholder.dishes.size() + 1L;
 
-        Dish dish = new Dish(newId, dishId, name, cuisine, preparationTime, 0);
+        Dish dish = new Dish(newId, dishId, name, cuisine, preparationTime, false);
         dishRepository.save(dish);
         return dish;
     }
@@ -61,6 +61,15 @@ public class DishServiceImpl implements DishService {
     @Override
     public void delete(Long id) {
         dishRepository.deleteById(id);
+    }
+
+    public Dish like(Long id){
+        Dish dish = dishRepository.findById(id).orElse(null);
+        if(dish != null){
+            dish.setLiked(!dish.isLiked());
+            dishRepository.save(dish);
+        }
+        return dish;
     }
 
 }

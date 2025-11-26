@@ -67,6 +67,14 @@
         <td>
             <form th:action="@{'/dishes/delete/{id}' (id=${dish.getId()})}" th:method="DELETE"> <button type="submit">Delete</button> </form>
             <a th:href="@{'/dishes/dish-form/{id}' (id=${dish.getId()})}">Edit</a>
+            <form th:action="@{'/dishes/like/{id}' (id=${dish.getId()})}" method="POST" style="display:inline;">
+                <button type="submit" th:if="${!dish.liked}" style="background-color: #4CAF50;">
+                    <span>Like</span>
+                </button>
+                <button type="submit" th:if="${dish.liked}" style="background-color: #f44336;">
+                    <span>Unlike</span>
+                </button>
+            </form>
 
         </td>
     </tr>

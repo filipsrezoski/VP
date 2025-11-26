@@ -59,4 +59,10 @@ public class DishController {
         return "dish-form";
     }
 
+    @PostMapping("/like/{id}")
+    public String Like(@PathVariable Long id){
+        dishService.like(id);
+        return "redirect:/dishes";
+    }
+
 }
