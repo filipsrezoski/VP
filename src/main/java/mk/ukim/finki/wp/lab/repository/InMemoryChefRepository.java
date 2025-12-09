@@ -1,4 +1,4 @@
-package mk.ukim.finki.wp.lab.repository;
+/*package mk.ukim.finki.wp.lab.repository;
 
 import mk.ukim.finki.wp.lab.bootstrap.Dataholder;
 import mk.ukim.finki.wp.lab.model.Chef;
@@ -30,3 +30,4 @@ public class InMemoryChefRepository implements ChefRepository{
         return chef;
     }
 }
+*/

@@ -2,12 +2,30 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Dish Form</title>
+    <title>Dish List</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            width: 800px;
+            width: 1000px;
             margin: 50px auto;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        a {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        a:hover {
+            background-color: #45a049;
         }
 
         table {
@@ -37,10 +55,29 @@
             padding: 5px 10px;
             cursor: pointer;
             border-radius: 4px;
+            margin-right: 5px;
         }
 
         button:hover {
             background-color: #d32f2f;
+        }
+
+        .edit-link {
+            background-color: #2196F3;
+            color: white;
+            padding: 5px 10px;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .edit-link:hover {
+            background-color: #0b7dda;
+        }
+
+        .actions {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
         }
     </style>
 </head>
@@ -48,34 +85,49 @@
 
 <h1>All Dishes</h1>
 <a href="/dishes/dish-form">Add new dish</a>
+
 <table>
     <thead>
     <tr>
+        <th>ID</th>
         <th>Dish ID</th>
         <th>Name</th>
         <th>Cuisine</th>
         <th>Preparation Time</th>
+        <th>Chef</th>
         <th>Options</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="dish : ${dishes}">
+        <td th:text="${dish.id}"></td>
         <td th:text="${dish.dishId}"></td>
         <td th:text="${dish.name}"></td>
         <td th:text="${dish.cuisine}"></td>
         <td th:text="${dish.preparationTime}"></td>
+        <!--<td th:text="${dish.chef != null ? dish.chef.firstName + ' ' + dish.chef.lastName : 'No Chef'}"></td>-->
         <td>
-            <form th:action="@{'/dishes/delete/{id}' (id=${dish.getId()})}" th:method="DELETE"> <button type="submit">Delete</button> </form>
-            <a th:href="@{'/dishes/dish-form/{id}' (id=${dish.getId()})}">Edit</a>
-            <form th:action="@{'/dishes/like/{id}' (id=${dish.getId()})}" method="POST" style="display:inline;">
-                <button type="submit" th:if="${!dish.liked}" style="background-color: #4CAF50;">
-                    <span>Like</span>
-                </button>
-                <button type="submit" th:if="${dish.liked}" style="background-color: #f44336;">
-                    <span>Unlike</span>
-                </button>
-            </form>
-
+            <a th:if="${dish.chef != null}"
+               th:href="@{/dishes/by-chef/{chefId}(chefId=${dish.chef.id})}"
+               th:text="${dish.chef.firstName + ' ' + dish.chef.lastName}">
+            </a>
+            <span th:if="${dish.chef == null}">No Chef</span>
+        </td>
+        <td>
+            <div class="actions">
+                <form th:action="@{'/dishes/delete/{id}' (id=${dish.id})}" method="POST" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+                <a th:href="@{'/dishes/dish-form/{id}' (id=${dish.id})}" class="edit-link">Edit</a>
+                <form th:action="@{'/dishes/like/{id}' (id=${dish.id})}" method="POST" style="display:inline;">
+                    <button type="submit" th:if="${!dish.liked}" style="background-color: #4CAF50;">
+                        <span>Like</span>
+                    </button>
+                    <button type="submit" th:if="${dish.liked}" style="background-color: #f44336;">
+                        <span>Unlike</span>
+                    </button>
+                </form>
+            </div>
         </td>
     </tr>
     </tbody>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Dish Form</title>
@@ -10,63 +10,121 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
+            padding: 20px;
         }
         .form-container {
             background: white;
-            padding: 20px 30px;
+            padding: 30px;
             border-radius: 8px;
-            width: 350px;
+            width: 100%;
+            max-width: 400px;
             box-shadow: 0 0 10px rgba(0,0,0,0.15);
         }
         .form-container h1 {
             text-align: center;
             margin-bottom: 20px;
+            color: #333;
         }
         label {
             font-weight: bold;
             margin-top: 10px;
             display: block;
+            color: #555;
         }
-        input {
+        input, select {
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             margin-top: 5px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             border-radius: 4px;
             border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        select {
+            cursor: pointer;
         }
         button {
             width: 100%;
             padding: 10px;
-            background: #007bff;
+            background: #4CAF50;
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             font-size: 15px;
+            font-weight: bold;
         }
         button:hover {
-            background: #0056b3;
+            background: #45a049;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: #2196F3;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 
 <body>
-<div>
-    <h1>Form</h1>
-    <form th:action="@{${dish== null ? '/dishes/add' : '/dishes/edit/' + dish.id}}" method="POST">
-        <label for="dishId">Dish id:</label>
-        <input type="text" id="dishId" name="dishId" placeholder="Enter dish ID" th:value="${dish!=null ? dish.dishId : ''}">
+<div class="form-container">
+    <h1 th:text="${dish != null ? 'Edit Dish' : 'Add New Dish'}">Dish Form</h1>
+
+    <form th:action="@{${dish == null ? '/dishes/add' : '/dishes/edit/' + dish.id}}" method="POST">
+
+        <label for="dishId">Dish ID:</label>
+        <input type="text"
+               id="dishId"
+               name="dishId"
+               placeholder="Enter dish ID"
+               th:value="${dish != null ? dish.dishId : ''}"
+               required>
+
         <label for="name">Dish Name:</label>
-        <input type="text" id="name" name="name" placeholder="Enter dish name" th:value="${dish!=null ? dish.name : ''}">
-        <label for="cuisine" >Cuisine:</label>
-        <input type="text" id="cuisine" name="cuisine" placeholder="Enter cuisine" th:value="${dish!=null ? dish.cuisine : ''}">
-        <label for="preparationTime">Preparation Time</label>
-        <input type="text" id="preparationTime" name="preparationTime" placeholder="Enter preparation time" th:value="${dish!=null ? dish.preparationTime : ''}">
-        <button id="submit">Submit</button>
+        <input type="text"
+               id="name"
+               name="name"
+               placeholder="Enter dish name"
+               th:value="${dish != null ? dish.name : ''}"
+               required>
+
+        <label for="cuisine">Cuisine:</label>
+        <input type="text"
+               id="cuisine"
+               name="cuisine"
+               placeholder="Enter cuisine"
+               th:value="${dish != null ? dish.cuisine : ''}"
+               required>
+
+        <label for="preparationTime">Preparation Time (min):</label>
+        <input type="number"
+               id="preparationTime"
+               name="preparationTime"
+               placeholder="Enter preparation time"
+               th:value="${dish != null ? dish.preparationTime : ''}"
+               min="1"
+               required>
+
+        <label for="chefId">Select Chef:</label>
+        <select id="chefId" name="chefId" required>
+            <option value="">-- Choose a Chef --</option>
+            <option th:each="chef : ${chefs}"
+                    th:value="${chef.id}"
+                    th:text="${chef.firstName + ' ' + chef.lastName}"
+                    th:selected="${dish != null && dish.chef != null && dish.chef.id == chef.id}">
+            </option>
+        </select>
+
+        <button type="submit" id="submit">Submit</button>
     </form>
+
+    <a href="/dishes" class="back-link">← Back to Dish List</a>
 </div>
 </body>
 </html>
