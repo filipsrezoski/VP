@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Dish List</title>
@@ -80,11 +80,18 @@
             flex-wrap: wrap;
         }
     </style>
+
+    <html xmlns:th="http://www.thymeleaf.org"
+          xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    </html>
+
 </head>
 <body>
 
 <h1>All Dishes</h1>
-<a href="/dishes/dish-form">Add new dish</a>
+<div sec:authorize="hasRole('ADMIN')">
+    <a href="/dishes/dish-form">Add new dish</a>
+</div>
 
 <table>
     <thead>
@@ -115,6 +122,7 @@
         </td>
         <td>
             <div class="actions">
+                <div sec:authorize="hasRole('ADMIN')">
                 <form th:action="@{'/dishes/delete/{id}' (id=${dish.id})}" method="POST" style="display:inline;">
                     <button type="submit">Delete</button>
                 </form>
@@ -127,6 +135,7 @@
                         <span>Unlike</span>
                     </button>
                 </form>
+                </div>
             </div>
         </td>
     </tr>
